@@ -1,0 +1,27 @@
+import React from 'react';
+import './hero.css';
+const FHero = () => {
+  return (
+    <div>
+      <div className='h-[50vh] w-screen pt-[150px] bg-black font-roboto text-100'>
+      <div id="bottomnav" className='px-10 h-full text-white text-center font-100 bg-transparent ckbadrop-blur-sm flex flex-col justify-center items-center text-[19px] gap-[20px] tracking-[0.25em] font-roboto'>
+      <hr className='w-[80%] border-1 border-white'></hr>
+          <div className='h-[calc(40vh-17vh)] flex flex-row justify-center items-center text-[19px] gap-14 tracking-[0.25em] font-roboto'>
+            <a href="" id="a1">Provider</a>
+            <a href="" id="a2">Legal</a>
+            <a href="" id="a3">Privacy</a>
+            <a href="/products" id="a4">Store</a>
+            <a href="" id="a5">Contact</a>
+            </div>
+            <div className='h-[17vh] w-screen pt-[10px] text-[50px] tracking-widest text-white bg-black flex flex-col justify-center items-center text-center font-aboreto font-100'>
+          SONORA<br></br>
+          <span className='text-[12px] flex flex-row gap-2 font-times'>
+            <span className='tracking-normal'>by</span> HARMAN
+          </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+export default FHero;
