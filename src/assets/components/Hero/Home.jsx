@@ -136,7 +136,7 @@ const Home = () => {
                   <div 
                   className="h-full bg-white rounded-sm"
           style={{ 
-            animation: `progress ${10000}ms linear forwards`,
+            animation: `progress ${11000}ms linear forwards`,
             animationPlayState: current === index ? 'running' : 'paused'
           }}
         />
