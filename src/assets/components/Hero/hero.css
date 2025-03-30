@@ -30,3 +30,14 @@ a{
     text-shadow: 3px 3px 20px #000;
     
   }
+  @keyframes spa{
+    from{
+      letter-spacing: 0.3em;
+    }
+   to{
+    letter-spacing: 0.1em;
+   }
+}
+.ani{
+  animation: spa ease 1.2s;
+}

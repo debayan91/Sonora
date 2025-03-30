@@ -107,6 +107,12 @@
     z-index:10000000;
     border-radius:1em;
 }
-#shado input,button{
+#shado input,button, #u{
     animation:show 0.9s ease;
+}
+#Why1{
+    animation: showup 1s ease;
+}
+#sm{
+    transform: scale(0.9);
 }

@@ -18,7 +18,8 @@ const FramerEmbed = () => {
     >
       <iframe
         ref={iframeRef}
-        src="https://enlightened-friday-833001.framer.app/"
+        // src="https://enlightened-friday-833001.framer.app/"
+        src="https://lively-sense-987894.framer.app/"
         className="w-[100vw] h-[100vh] border-0 overflow-hidden"
         allowFullScreen
         style={{
