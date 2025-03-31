@@ -14,7 +14,7 @@ const FramerEmbed = () => {
         }}
       />
       <div 
-        className="absolute bottom-3 right-5 w-[150px] h-[45px] rounded-lg bg-black z-50"
+        className="absolute bottom-5 right-8 w-40 h-10 rounded-lg bg-black z-50"
       />
     </div>
   );
