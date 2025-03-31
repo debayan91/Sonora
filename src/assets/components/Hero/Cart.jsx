@@ -1,22 +1,31 @@
 import React from 'react';
+import { useEffect} from 'react';
 import { useCart } from '/src/context/Cartcontext.jsx';
 import { useAuth } from '/src/hooks/useAuth.js';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Hero from './Hero.jsx';
 import Stickyhero from './Stickyhero.jsx';
 import Footer from './Footer';
+import Prodata from './Prodata';
 
 const CartPage = () => {
-  const { 
-    items, 
-    total, 
-    itemCount, 
-    removeItem, 
-    updateQuantity, 
+  const navigate = useNavigate();
+  const clicky = (product) => {
+    navigate(`/products/${product.id}`, { state: { product } });
+  };
+  useEffect(() => {
+      document.title = "Sonora - Cart";
+    }, []);
+  const {
+    items,
+    total,
+    itemCount,
+    removeItem,
+    updateQuantity,
     clearCart,
-    isLoading 
+    isLoading
   } = useCart();
-  
+
   const { currentUser } = useAuth();
 
   if (isLoading) {
@@ -35,15 +44,15 @@ const CartPage = () => {
       <div className="relative z-10 w-full">
         <Hero />
         <Stickyhero />
-        
+
         <div className="container mx-auto px-4 py-8 max-w-6xl min-h-[83vh]">
           <h1 className="text-3xl text-white font-aboreto font-medium mb-8">Cart - {itemCount}</h1>
-          
+
           {items.length === 0 ? (
             <div className="bg-white rounded-lg shadow p-8 text-center">
               <h2 className="text-2xl mb-4">Your cart is empty</h2>
-              <Link 
-                to="/products" 
+              <Link
+                to="/products"
                 className="inline-block bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition-colors duration-200"
               >
                 Continue Shopping
@@ -57,18 +66,22 @@ const CartPage = () => {
                     {items.map((item) => (
                       <div key={`${item.id}-${item.quantity}`} className="p-4 flex flex-col sm:flex-row gap-4">
                         <div className="w-full sm:w-1/4 aspect-square bg-gray-100 rounded-lg overflow-hidden">
-                          <img 
-                            src={item.image} 
+                          <img
+                            src={item.image}
                             alt={item.name}
                             className="w-full h-full object-cover"
                             loading="lazy"
                           />
                         </div>
-                        
+
                         <div className="flex-1 flex flex-col">
                           <div className="flex justify-between">
-                            <h3 className="text-xl font-medium">{item.name}</h3>
-                            <button 
+                            <h3 onClick={() => {
+                              const product = Prodata.find(p => p.id === item.id);
+                              if (product) clicky(product);
+                            }}
+                              className="text-xl cursor-pointer font-medium">{item.name}</h3>
+                            <button
                               onClick={() => removeItem(item.id)}
                               className="text-gray-500 hover:text-red-500 transition-colors"
                               aria-label={`Remove ${item.name} from cart`}
@@ -76,12 +89,12 @@ const CartPage = () => {
                               ×
                             </button>
                           </div>
-                          <p className="text-gray-600 mb-2">{item.brand}</p>
+                          <p className="text-gray-600 text-[0.9em] mb-2">{item.brand}</p>
                           <p className="text-lg font-medium mb-4">INR {item.price.toLocaleString('en-IN')}</p>
-                          
+
                           <div className="mt-auto flex items-center">
                             <div className="flex items-center border border-gray-300 rounded">
-                              <button 
+                              <button
                                 onClick={() => updateQuantity(item.id, item.quantity - 1)}
                                 className="px-3 py-1 text-lg hover:bg-gray-100 transition-colors"
                                 disabled={item.quantity <= 1}
@@ -91,14 +104,14 @@ const CartPage = () => {
                               <span className="px-4 py-1 border-x border-gray-300">
                                 {item.quantity}
                               </span>
-                              <button 
+                              <button
                                 onClick={() => updateQuantity(item.id, item.quantity + 1)}
                                 className="px-3 py-1 text-lg hover:bg-gray-100 transition-colors"
                               >
                                 +
                               </button>
                             </div>
-                            
+
                             <div className="ml-auto text-lg">
                               INR {calculateItemTotal(item.price, item.quantity)}
                             </div>
@@ -107,9 +120,9 @@ const CartPage = () => {
                       </div>
                     ))}
                   </div>
-                  
+
                   <div className="p-4 border-t border-gray-200 flex justify-end">
-                    <button 
+                    <button
                       onClick={clearCart}
                       className="text-red-500 hover:text-red-700 transition-colors"
                     >
@@ -119,45 +132,45 @@ const CartPage = () => {
                 </div>
               </div>
               <div className="lg:w-1/3">
-                <div className="bg-white rounded-lg shadow p-6 sticky top-4">
+                <div className="bg-white rounded-lg shadow p-6 sticky top-[12vh]">
                   <h2 className="text-xl font-medium mb-4">Order Summary</h2>
-                  
+
                   <div className="space-y-4 mb-6">
                     <div className="flex justify-between">
                       <span>Subtotal ({itemCount} items)</span>
                       <span>INR {total.toLocaleString('en-IN')}</span>
                     </div>
-                    
+
                     <div className="flex justify-between">
                       <span>Shipping</span>
                       <span className="text-green-600">FREE</span>
                     </div>
-                    
+
                     <div className="border-t border-gray-200 pt-4 flex justify-between font-medium text-lg">
                       <span>Total</span>
                       <span>INR {total.toLocaleString('en-IN')}</span>
                     </div>
                   </div>
-                  
+
                   {currentUser ? (
-                    <button 
+                    <button
                       className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors duration-200"
-                      onClick={() => {/* Add checkout logic here */}}
+                      onClick={() => navigate('/checkout')}
                     >
                       Proceed to Checkout
                     </button>
                   ) : (
                     <div className="text-center">
                       <p className="mb-4 text-gray-600">Please sign in to checkout</p>
-                      <Link 
-                        to="/login" 
+                      <Link
+                        to="/login"
                         className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors duration-200 block"
                       >
                         Sign In
                       </Link>
                     </div>
                   )}
-                  
+
                   <div className="mt-4 text-sm text-gray-500 text-center">
                     <p>30-day return policy • Free shipping on all orders</p>
                   </div>
@@ -167,7 +180,7 @@ const CartPage = () => {
           )}
         </div>
       </div>
-      
+
       <Footer />
     </div>
   );

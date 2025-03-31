@@ -2,25 +2,21 @@ import Hero from './Hero.jsx';
 import Stickyhero from './Stickyhero.jsx';
 import Footer from './Footer';
 import './pro.css';
-import { useState } from 'react';
 import {useLocation } from 'react-router-dom';
 import Prodata from './Prodata';
-//import { useNavigate } from 'react-router-dom';
 import { useCart } from '/src/context/Cartcontext.jsx';
+import { useState,useEffect } from 'react';
 
 
 const Prod = () => {
+  
   const location = useLocation();
   const { product } = location.state || {};
   const { addItem } = useCart();
-  //const navigate = useNavigate();
-  // const clicky = (product) => {
-  //   navigate(`/products/${product.id}`, { state: { product } });
-  // };
-
   const [mainImage, setMainImage] = useState(product.image);
-
-  
+  useEffect(() => {
+    document.title = `Buy ${product.name}`;
+  }, []);
   return (
     <div 
   className={`font-roboto tracking-widest min-h-screen flex flex-col items-center ${
@@ -34,7 +30,7 @@ const Prod = () => {
         <div id="parent" className='flex flex-col justify-center items-center p-[6%]'>
           <div id="to" className=' backdrop-blur-sm z-100 h-[100vh] w-[90vw] rounded-lg flex p-[3%]'>
             <div id="slider" className='h-[90vh] overflow-y-auto w-[10%] rounded-lg flex flex-col gap-4 p-2'>
-              {[product.image, product.image1, product.img3, product.img4, product.img5].map((img, index) => (
+              {[product.image1, product.image, product.img3, product.img4, product.img5].map((img, index) => (
                 <div key={index} onClick={()=>setMainImage(img)} className='w-full aspect-square bg-gray-700 rounded-lg cursor-pointer opacity-90 hover:opacity-100 transition-opacity'>
                   <img 
                     src={img} 
@@ -45,7 +41,7 @@ const Prod = () => {
             </div>
 
             <div id="image" className='h-[70vh] w-[45%] rounded-lg flex items-center justify-center p-8'>
-              <div className='w-full h-full bg-gray-800 rounded-lg flex items-center justify-center'>
+              <div className='w-full h-auto bg-gray-800 rounded-lg flex items-center justify-center'>
                 <img 
                   src={mainImage} 
                   className="h-full object-cover rounded-lg"
@@ -88,8 +84,7 @@ const Prod = () => {
             </div>
           </div>
 
-          <div id="bo" className=' backdrop-blur-sm z-100 min-h-[170vh] w-[90vw] rounded-lg flex flex-col p-[3%] mt-8 gap-8'>
-
+          <div id="bo" className=' backdrop-blur-sm z-10 min-h-[170vh] w-[90vw] rounded-lg flex flex-col p-[3%] mt-8 gap-8'>
             <div id="fr" className={`${product.needblack === "yes" ? 'bg-black' : 'bg-white'} h-[70vh] w-full rounded-lg flex flex-row-reverse justify-center items-center`}>
               <div className='h-full w-[50%] '>
               <img 

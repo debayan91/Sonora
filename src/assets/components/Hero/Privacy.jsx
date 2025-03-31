@@ -2,8 +2,11 @@ import Hero from './Hero.jsx';
 import Stickyhero from './Stickyhero.jsx';
 import './Home.css';
 import Fhero from './Footer';
-
+import { useEffect } from 'react';
 const LoginPage = () => {
+  useEffect(() => {
+      document.title = "Sonora - Privacy";
+    }, []);
   return (
     <>
       <div className="min-h-screen bg-black flex flex-col items-center relative overflow-hidden">

@@ -16,6 +16,9 @@ import { useAuth } from '/src/hooks/useAuth.js';
 import Account from './assets/components/Hero/Account.jsx';
 import Cart from './assets/components/Hero/Cart.jsx';
 import { CartProvider } from '/src/context/Cartcontext.jsx';
+import Contact from './assets/components/Hero/Contact.jsx';
+import Checkout from './assets/components/Hero/Checkout.jsx';
+import Tnc from './assets/components/Hero/Terms.jsx';
 
 const App = () => {
   const { currentUser } = useAuth();
@@ -36,6 +39,9 @@ const App = () => {
         <Route path="/legal" element={<Legal/>}/>
         <Route path="/provider" element={<Provider/>}/>
         <Route path="/demo" element={<Demo/>}/>
+        <Route path="/contact" element={<Contact/>}/>
+        <Route path="/checkout" element={<Checkout/>}/>
+        <Route path="/tnc" element={<Tnc/>}/>
         <Route path="/account" element={currentUser ? <Account /> : <Login />} />
       </Routes>
     </Router>

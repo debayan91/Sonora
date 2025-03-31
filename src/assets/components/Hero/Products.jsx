@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
 import Hero from './Hero.jsx';
 import Stickyhero from './Stickyhero.jsx';
 import Footer from './Footer';
@@ -8,7 +8,11 @@ import Prodata from './Prodata';
 
 const Prods = () => {
   const navigate = useNavigate();
- 
+
+  useEffect(() => {
+    document.title = "Sonora - All Products";
+  }, []);
+
   const clicky = (product) => {
     navigate(`/products/${product.id}`, { state: { product } });
   };
@@ -19,10 +23,10 @@ const Prods = () => {
   const handleSortChange = (e) => {
     const option = e.target.value;
     setSortOption(option);
-    
+
     let sortedProducts = [...products];
-    
-    switch(option) {
+
+    switch (option) {
       case 'price-low':
         sortedProducts.sort((a, b) => a.price - b.price);
         break;
@@ -35,23 +39,23 @@ const Prods = () => {
       default:
         sortedProducts = [...Prodata];
     }
-    
+
     setProducts(sortedProducts);
   };
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-[url(https://mezeaudio.com/cdn/shop/files/Meze-Audio-Empyrean-headphone-04.webp?v=1713431934&width=1200)] bg-cover relative overflow-hidden">
-      
+
       <div className="relative z-10 w-full">
-        <Hero/>
-        <Stickyhero/>
+        <Hero />
+        <Stickyhero />
         <div className="container mx-auto px-4 py-12">
           <div className="bg-black/30 backdrop-blur-sm p-4 px-7 rounded-lg mb-8 flex justify-between items-center">
             <h2 className="text-white text-xl font-roboto">{Prodata.length} Products</h2>
             <div className="flex items-center">
               <label htmlFor="sort" className="text-white mr-2 text-sm">Sort by:</label>
-              <select 
-                id="sort" 
+              <select
+                id="sort"
                 value={sortOption}
                 onChange={handleSortChange}
                 className="bg-black/30 border border-[rgba(255,255,255,0.65)] rounded-sm text-white  px-2 py-1 text-sm focus:outline-none"
@@ -63,34 +67,34 @@ const Prods = () => {
               </select>
             </div>
           </div>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 rounded-lg">
             {products.map(product => (
-             <div key={product.id} id="pro" onClick={() => clicky(product)} className="rounded-lg bg-black/30 backdrop-blur-sm overflow-hidden shadow-lg hover:shadow-white/30 transition-shadow duration-300 group">
-             <div className="h-[300px] flex items-center justify-center bg-white/10 relative overflow-hidden">
-               <img 
-                 src={product.image1} 
-                 alt={product.name} 
-                 className="h-full object-cover absolute transition-opacity duration-1500 ease-in-out group-hover:opacity-0"
-               />
-               <img 
-                 src={product.image} 
-                 alt={product.name} 
-                 className="h-full object-cover absolute transition-opacity duration-1500 ease-in-out opacity-0 group-hover:opacity-100"
-               />
-             </div>
-             <div className="p-4">
-               <h3 className="text-white font-medium mb-1 line-clamp-2">{product.name}</h3>
-               <div className="flex justify-between items-center">
-                 <span className="text-white font-bold">INR {product.price.toFixed(2)}</span>
-               </div>
-             </div>
-           </div>
+              <div key={product.id} id="pro" onClick={() => clicky(product)} className="rounded-lg cursor-pointer bg-black/30 backdrop-blur-sm overflow-hidden shadow-lg hover:shadow-white/30 transition-shadow duration-300 group">
+                <div className="group h-[300px] flex items-center justify-center bg-white/10 relative overflow-hidden">
+                  <img
+                    src={product.image1}
+                    alt={product.name}
+                    className="h-full object-cover absolute transition-opacity duration-[0.6s] ease-in-out group-hover:opacity-0"
+                  />
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="h-full object-cover absolute transition-opacity duration-[0.6s] ease-in-out opacity-0 group-hover:opacity-100"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-white font-medium mb-1 line-clamp-2">{product.name}</h3>
+                  <div className="flex justify-between items-center">
+                    <span className="text-white font-bold">INR {product.price.toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

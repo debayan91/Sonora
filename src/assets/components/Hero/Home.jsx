@@ -10,10 +10,6 @@ import ie6 from './ie6.mp4';
 import './Home.css';
 import FramerEmbed from './Framerfile';
 import Fhero from './Footer';
-import b1 from './stelliaimg.webp';
-import b2 from './hd660s2img.webp';
-import b3 from './azurysimg.webp';
-import b4 from './hd800simg.webp';
 import Prodata from './Prodata';
 import { useNavigate } from 'react-router-dom';
 
@@ -57,9 +53,11 @@ const carouselItems = [
 ];
 
 const Home = () => {
+  useEffect(() => {
+    document.title = "Sonora";
+  }, []);
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
-
   const clicky = (product) => {
     navigate(`/products/${product.id}`, { state: { product } });
   };

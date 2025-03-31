@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import Hero from './Hero.jsx';
 import Stickyhero from './Stickyhero.jsx';
 import Footer from './Footer';
@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import './pro.css';
 import Prodata from './Prodata';
 const Prods = () => {
+  useEffect(() => {
+      document.title = "Sonora - IEMs";
+    }, []);
   const navigate = useNavigate();
   const IEMs = Prodata.filter(product => product.category == 'iems');
   const clicky = (product) => {
@@ -70,18 +73,18 @@ const Prods = () => {
                <img 
                  src={product.image1} 
                  alt={product.name} 
-                 className="h-full object-cover absolute transition-opacity duration-1500 ease-in-out group-hover:opacity-0"
+                 className="h-full object-cover absolute transition-opacity duration-[0.6s] ease-in-out group-hover:opacity-0"
                />
                <img 
                  src={product.image} 
                  alt={product.name} 
-                 className="h-full object-cover absolute transition-opacity duration-1500 ease-in-out opacity-0 group-hover:opacity-100"
+                 className="h-full object-cover absolute transition-opacity duration-[0.6s] ease-in-out opacity-0 group-hover:opacity-100"
                />
              </div>
              <div className="p-4">
                <h3 className="text-white font-medium mb-1 line-clamp-2">{product.name}</h3>
                <div className="flex justify-between items-center">
-                 <span className="text-white font-bold">INR {product.price.toFixed(2)}</span>
+                 <span className="text-white font-bold">INR {product.price.toLocaleString()}</span>
                </div>
              </div>
            </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import RandExp from 'randexp';
 import Hero from './Hero.jsx';
 import Stickyhero from './Stickyhero.jsx';
@@ -10,6 +10,9 @@ import g from "./glogo.webp";
 import { useAuth } from '/src/hooks/useAuth.js';
 
 const SignUpPage = () => {
+  useEffect(() => {
+    document.title = "Sonora - Sign Up";
+  }, []);
   const navigate = useNavigate();
   const { googleLogin, emailSignUp } = useAuth();
 
@@ -18,7 +21,7 @@ const SignUpPage = () => {
       await googleLogin();
       navigate('/');
     } catch {
-      alert("Error")
+      alert("error")
     }
   };
 
@@ -29,6 +32,7 @@ const SignUpPage = () => {
     confirmPassword: '',
     acceptTerms: false
   });
+
   const [showPassword, setShowPassword] = useState(false);
 
   const handleInputChange = (e) => {
@@ -89,6 +93,7 @@ const SignUpPage = () => {
       alert("You must agree to the Terms of Use.");
       return;
     }
+    
     try {
       await emailSignUp(formData.email, formData.password);
       navigate('/');
@@ -252,7 +257,7 @@ const SignUpPage = () => {
                           )}
                         </div>
                       </div>
-                      <span className="ml-2 text-xs">I accept the <a href="#" className="text-white">Terms of Use</a></span>
+                      <span className="ml-2 text-xs">I accept the <a href="/tnc" className="text-white">Terms of Use</a></span>
                     </label>
                   </div>
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import Hero from './Hero.jsx';
 import Stickyhero from './Stickyhero.jsx';
 import vid1 from './signvideo.mp4';
@@ -8,6 +8,9 @@ import g from "./glogo.webp";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '/src/hooks/useAuth.js';
 const LoginPage = () => {
+  useEffect(() => {
+    document.title = "Sonora - Login";
+  }, []);
 
   const { emailLogin, googleLogin } = useAuth();
   const [email, setEmail] = useState('');
@@ -17,7 +20,7 @@ const LoginPage = () => {
     try {
       await googleLogin();
       navigate('/');
-    } catch (error) {
+    } catch{
       alert("Google sign-in failed");
     }
   };
@@ -166,29 +169,6 @@ const LoginPage = () => {
                       <span className="ml-2 text-xs">Show Password</span>
                     </label>
                   </div>
-
-                  {/* <div className="flex items-center mb-7">
-                <label className="flex items-center cursor-pointer">
-                  <div className="relative">
-                    <input
-                      type="checkbox"
-                      id="remember"
-                      name="rememberMe"
-                      className="sr-only"
-                      checked={formData.rememberMe}
-                      onChange={handleInputChange}
-                    />
-                    <div className={`w-4 h-4 rounded-full border border-white flex items-center justify-center ${formData.rememberMe ? 'bg-white' : ''}`}>
-                      {formData.rememberMe && (
-                        <svg className="w-2 h-2 text-black" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      )}
-                    </div>
-                  </div>
-                  <span className="ml-2 text-xs">Remember me</span>
-                </label>
-              </div> */}
 
                   <button
                     type="submit"

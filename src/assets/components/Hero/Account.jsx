@@ -1,3 +1,6 @@
+import React from 'react';
+
+import { useEffect} from 'react';
 import { useAuth } from '/src/hooks/useAuth.js';
 import { useNavigate } from 'react-router-dom';
 import Hero from './Hero.jsx';
@@ -5,8 +8,10 @@ import Stickyhero from './Stickyhero.jsx';
 import vid1 from './signvideo.mp4';
 import './Home.css';
 import Fhero from './Footer';
-// i want to have the data passed from product page the same way its passed from products to producto
 const AccountPage = () => {
+  useEffect(() => {
+    document.title = "Sonora - Account";
+  }, []);
   const { currentUser, logout, loading } = useAuth();
   const navigate = useNavigate();
 
@@ -20,11 +25,11 @@ const AccountPage = () => {
     try {
       await logout();
       navigate('/login');
-    } catch (error) {
-      console.error("Logout failed:", error);
+    } catch{
       alert("Logout failed. Please try again.");
     }
   };
+  
   return (
     <>
       <div className="min-h-screen flex flex-col items-center relative overflow-hidden font-roboto">

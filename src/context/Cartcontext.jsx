@@ -4,12 +4,11 @@ import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { useAuth } from '/src/hooks/useAuth.js';
 
 const CartContext = createContext();
-
 const initialState = {
   items: [],
   total: 0,
   itemCount: 0,
-  isLoading: true
+  isLoading: true,
 };
 
 const cartReducer = (state, action) => {
@@ -85,11 +84,6 @@ export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
   const { currentUser } = useAuth();
 
-  // Debug logs (remove in production)
-  console.log('Current cart state:', state);
-  console.log('Current user:', currentUser?.uid);
-
-  // Unified save function with timestamp
   const persistCart = useCallback(async (cartData) => {
     try {
       const dataToSave = {
@@ -109,7 +103,6 @@ export const CartProvider = ({ children }) => {
     }
   }, [currentUser]);
 
-  // Load cart on mount/auth change
   useEffect(() => {
     const loadCart = async () => {
       try {
@@ -138,7 +131,6 @@ export const CartProvider = ({ children }) => {
     loadCart();
   }, [currentUser]);
 
-  // Save on changes (debounced to prevent excessive writes)
   useEffect(() => {
     if (state.isLoading) return;
     
@@ -155,7 +147,6 @@ export const CartProvider = ({ children }) => {
     return () => clearTimeout(timer);
   }, [state.items, state.total, state.itemCount, state.isLoading, persistCart]);
 
-  // Merge guest cart on login
   useEffect(() => {
     if (!currentUser || state.isLoading) return;
 
@@ -180,7 +171,6 @@ export const CartProvider = ({ children }) => {
     mergeGuestCart();
   }, [currentUser, state.isLoading]);
 
-  // Action creators
   const addItem = useCallback((item) => {
     dispatch({ 
       type: 'ADD_ITEM', 
